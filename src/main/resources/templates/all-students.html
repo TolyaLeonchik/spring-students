@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>All students</title>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-$END$
+<body class="container">
+<div th:if="${studentMessage}" th:text="${studentMessage}" class="alert-success text-center"/>
+<table class="table table-bordered">
+    <tr>
+        <th>Id</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Speciality</th>
+        <th>Form</th>
+    </tr>
+    <tr th:if="${#lists.isEmpty(users)}">
+        <td class="text-center" colspan="6"> No records found...</td>
+    </tr>
+    <tr th:each="student : ${students}">
+        <td class="align_middle" th:text="${student.id}"/>
+        <td class="align_middle" th:text="${student.firstName}"/>
+        <td class="align_middle" th:text="${student.lastName}"/>
+        <td class="align_middle" th:text="${student.speciality}"/>
+        <td class="align_middle" th:text="${student.form}"/>
+        <td class="align_middle text-center"><a class="btn btn-secondary" th:href="'/'+${student.id}">Delete</a></td>
+    </tr>
+</table>
+<div class="align_middle text-center"><a class="btn btn-secondary" th:href="'/new'">Create new student</a></div>
 </body>
 </html>
